@@ -31,8 +31,21 @@ public class RegistrationController {
             @RequestParam String password,
             Model model) {
 
+        if (username.length() < 3) {
+            model.addAttribute("error",
+                    "Username must be at least 3 characters.");
+            return "register";
+        }
+
+        if (password.length() < 6) {
+            model.addAttribute("error",
+                    "Password must be at least 6 characters.");
+            return "register";
+        }
+
         if (userRepository.existsByUsername(username)) {
-            model.addAttribute("error", "Username already exists");
+            model.addAttribute("error",
+                    "Username is already taken.");
             return "register";
         }
 
@@ -42,7 +55,7 @@ public class RegistrationController {
 
         userRepository.save(user);
 
-        return "redirect:/login";
+        return "redirect:/login?registered";
     }
 
 }

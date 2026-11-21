@@ -31,5 +31,12 @@
 
 </form>
 
+<p th:if="${error}" th:text="${error}"></p>
+
+<p>
+    Already have an account?
+    <a th:href="@{/login}">Sign in</a>
+</p>
+
 </body>
 </html>
