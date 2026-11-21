@@ -1,10 +1,8 @@
-package edu.farmingdale.csc311.lostfound;
+package edu.farmingdale.csc311.lostfound.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import edu.farmingdale.csc311.lostfound.user.AppUser;
-import edu.farmingdale.csc311.lostfound.user.AppUserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
