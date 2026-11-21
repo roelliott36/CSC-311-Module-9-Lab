@@ -16,23 +16,35 @@ public class SecurityConfig {
     }
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http)
-        throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
 
-    http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/register", "/h2-console/**", "/css/**", "/js/**")
-            .permitAll()
-            .anyRequest().authenticated()
-        )
-        .formLogin(form -> form.permitAll())
-        .csrf(csrf -> csrf
-            .ignoringRequestMatchers("/h2-console/**")
-        )
-        .headers(headers -> headers
-            .frameOptions(frame -> frame.sameOrigin())
-        );
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/register",
+                                "/login",
+                                "/error",
+                                "/h2-console/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
+                        .permitAll()
+                )
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**")
+                )
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                );
 
-    return http.build();
-}
+        return http.build();
+    }
 }
