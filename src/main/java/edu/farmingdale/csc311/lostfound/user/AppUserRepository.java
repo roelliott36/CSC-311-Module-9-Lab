@@ -1,11 +1,12 @@
 package edu.farmingdale.csc311.lostfound.user;
 
-public class AppUserRepository {
-    
-    public boolean existsByUsername(String username) {
-        return false;
-    }
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-    public void save(AppUser user) {
-    }
+public interface AppUserRepository
+        extends JpaRepository<AppUser, Long> {
+
+    Optional<AppUser> findByUsername(String username);
+
+    boolean existsByUsername(String username);
 }
